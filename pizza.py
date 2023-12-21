@@ -1,4 +1,3 @@
-
 import requests
 from bs4 import BeautifulSoup
 import firebase_admin
@@ -41,4 +40,4 @@ for x in result:
         'buyUrl': buyUrl
         # 'buyUrl': buyUrl,
     }
-    doc_ref = db.collection("優惠推薦").add(docs)
+    doc_ref = db.collection("活動").add(docs)
