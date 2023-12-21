@@ -39,7 +39,7 @@ def webhook():
         title = req["queryResult"]["parameters"]["title"]
         info = ""
         db = firestore.client()     
-        collection_ref = db.collection("Pizza").order_by("title").get()
+        collection_ref = db.collection("PIZZA").order_by("title")
         docs = collection_ref.get()
         for doc in docs:
             if title in doc.to_dict()["title"]: 
