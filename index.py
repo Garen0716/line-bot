@@ -52,6 +52,25 @@ def webhook():
         if found:
             info = "找不到您搜尋的活動"
             return make_response(jsonify({"fulfillmentText": info}))
+    elif (action=="product"):
+        title = req["queryResult"]["parameters"]["name"]
+        info = ""
+        found=False
+        db = firestore.client()     
+        collection_ref = db.collection("產品介紹").order_by("name")
+        docs = collection_ref.get()
+        for doc in docs:
+            if title in doc.to_dict()["name"]:
+                found = True    
+                info += "產品：" + str(doc.to_dict()["name"]) + "<br>" 
+                info += "價格：" + doc.to_dict()["price"] + "<br>"
+                info += "圖片：" +"<a href=" + doc.to_dict()["pic"] +">" + doc.to_dict()["pic"] +"<br>"
+                return make_response(jsonify({"fulfillmentText": info}))
+        if found:
+            info = "找不到您搜尋的產品"
+            return make_response(jsonify({"fulfillmentText": info}))
+        
+        
 
 
 
