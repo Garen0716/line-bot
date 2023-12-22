@@ -27,9 +27,9 @@ db = firestore.client()
 #         print(info)
 # print(info)                  
 
-action = "Hot拼盤樂享餐 / $1288"
+action = "p "
 info = ""
-
+found = False
 if action:
     db = firestore.client()     
     collection_ref = db.collection("PIZZA").order_by("title")
@@ -37,11 +37,14 @@ if action:
 
     for doc in docs:
         if action in doc.to_dict()["title"]:
+            found=True
             info += "活動：" + str(doc.to_dict()["title"]) + "<br>" 
             info += "內容：" + doc.to_dict()["detail"] + "<br>"
             info += "連結：" + "<a href=" + doc.to_dict()["buyUrl"] + ">" + doc.to_dict()["buyUrl"] + "<br>"
-
-    print(info)
+        print(info)
+        if not found:
+            info = "找不到您搜尋的活動"
+        print(info)
 
 # if __name__ == "__main__": 
 #     app.run(debug=True)
