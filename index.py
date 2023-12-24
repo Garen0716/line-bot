@@ -40,7 +40,7 @@ def webhook():
         info = ""
         found=False
         db = firestore.client()     
-        collection_ref = db.collection("優惠推薦").order_by("title")
+        collection_ref = db.collection("活動").order_by("title")
         docs = collection_ref.get()
         for doc in docs:
             if title in doc.to_dict()["title"]:
