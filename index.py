@@ -71,7 +71,7 @@ def webhook():
             info = "找不到您搜尋的產品"
             return make_response(jsonify({"fulfillmentText": info}))
     elif (action=="News"):
-        title = req["queryResult"]["parameters"]["name"]
+        title = req["queryResult"]["parameters"]["News"]
         info = ""
         db = firestore.client()    
         found=False 
@@ -87,12 +87,8 @@ def webhook():
         if found:
             info = "找不到您搜尋的產品"
             return make_response(jsonify({"fulfillmentText": info}))    
-         
-    
         
         
-
-
-
+        
 if __name__ == "__main__": 
     app.run(debug=True)
