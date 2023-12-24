@@ -45,10 +45,10 @@ def webhook():
         for doc in docs:
             if title in doc.to_dict()["title"]:
                 found = True    
-                info += "活動：" + str(doc.to_dict()["title"]) 
+                info += "活動：" + str(doc.to_dict()["title"]) + "\n"
                 info += "內容：" + doc.to_dict()["detail"]+ "\n" 
-                info += "圖片：" + doc.to_dict()["photo"] 
-                info += "連結：" + doc.to_dict()["buyUrl"] 
+                info += "圖片：" + doc.to_dict()["photo"]+ "\n" 
+                info += "連結：" + doc.to_dict()["buyUrl"]+ "\n"
                 return make_response(jsonify({"fulfillmentText": info}))
         if found:
             info = "找不到您搜尋的活動"
@@ -65,26 +65,26 @@ def webhook():
                 found = True    
                 info += "產品：" + str(doc.to_dict()["name"]) + "\n" 
                 info += "價格：" + doc.to_dict()["price"] + "\n"
-                info += "圖片：" +"<a href=" + doc.to_dict()["pic"] +">" + doc.to_dict()["pic"] +"<br>"
+                info += "圖片：" + doc.to_dict()["pic"] +"\n"
                 return make_response(jsonify({"fulfillmentText": info}))
         if found:
             info = "找不到您搜尋的產品"
             return make_response(jsonify({"fulfillmentText": info}))
-    elif (action=="news"):
+    elif (action=="News"):
         title = req["queryResult"]["parameters"]["name"]
         info = ""
         db = firestore.client()    
         found=False 
-        collection_ref = db.collection("新品嘗鮮").order_by("name")
+        collection_ref = db.collection("新品嘗鮮").order_by("News")
         docs = collection_ref.get()
         for doc in docs:
-            if title in doc.to_dict()["name"]:
+            if title in doc.to_dict()["News"]:
                 found=True
-                info += "產品：" + str(doc.to_dict()["name"]) + "\n" 
+                info += "產品：" + str(doc.to_dict()["News"]) + "\n" 
                 info += "價格：" + doc.to_dict()["detail"] + "\n"
-                info += "圖片：" +"<a href=" + doc.to_dict()["pic"] +">" + doc.to_dict()["pic"] +"<br>"
+                info += "圖片：" + doc.to_dict()["pic"] +"\n"
             return make_response(jsonify({"fulfillmentText": info}))   
-    if found:
+        if found:
             info = "找不到您搜尋的產品"
             return make_response(jsonify({"fulfillmentText": info}))    
          
