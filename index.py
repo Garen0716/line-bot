@@ -47,7 +47,7 @@ def webhook():
                 found = True    
                 info += "活動：" + str(doc.to_dict()["title"]) 
                 info += "內容：" + doc.to_dict()["detail"]+ "\n" 
-                info += "圖片：" + doc.to_dict()["pic"] 
+                info += "圖片：" + doc.to_dict()["photo"] 
                 info += "連結：" + doc.to_dict()["buyUrl"] 
                 return make_response(jsonify({"fulfillmentText": info}))
         if found:
