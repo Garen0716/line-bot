@@ -40,4 +40,4 @@ for x in result:
         'title': price, 
         'buyUrl': buyUrl
     }
-    doc_ref = db.collection("活動").add(docs)
+    doc_ref = db.collection("優惠推薦").add(docs)
