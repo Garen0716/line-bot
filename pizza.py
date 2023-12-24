@@ -30,14 +30,14 @@ for x in result:
     detail = x.find("p",class_="pro-list-desc").text
     # buyUrl = "https://www.pizzahut.com.tw/" + x.find("a").get('href') 
 
-    photo = x.find("img").get("src").replace(" ", "")
+    photo = x.find("img").get("data-original")
     buyUrl='https://www.pizzahut.com.tw/' + x.find("a").get('href')
     # hyperlink = 'https:' + x.find('img').get('href')
     info += price+"\n"+detail+"\n\n"
     docs = {
-        'title': price, 
         'detail': detail,
+        'photo': photo,
+        'title': price, 
         'buyUrl': buyUrl
-        # 'buyUrl': buyUrl,
     }
     doc_ref = db.collection("活動").add(docs)
