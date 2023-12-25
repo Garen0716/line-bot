@@ -81,7 +81,7 @@ def webhook():
             if title in doc.to_dict()["News"]:
                 found=True
                 info += "產品：" + str(doc.to_dict()["News"]) + "\n" 
-                info += "價格：" + doc.to_dict()["detail"] + "\n"
+                info += "內容：" + doc.to_dict()["detail"] + "\n"
                 info += "圖片：" + doc.to_dict()["pic"] +"\n"
             return make_response(jsonify({"fulfillmentText": info}))   
         if found:
