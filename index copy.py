@@ -27,24 +27,21 @@ db = firestore.client()
 #         print(info)
 # print(info)                  
 
-action = "p "
+action = "芋見乳酪千層酥"
 info = ""
 found = False
-if action:
+if action == action:
     db = firestore.client()     
-    collection_ref = db.collection("PIZZA").order_by("title")
+    collection_ref = db.collection("新品").order_by("news")
     docs = collection_ref.get()
 
     for doc in docs:
-        if action in doc.to_dict()["title"]:
+        if action in doc.to_dict()["news"]:
             found=True
-            info += "活動：" + str(doc.to_dict()["title"]) + "<br>" 
+            info += "活動：" + str(doc.to_dict()["news"]) + "<br>" 
             info += "內容：" + doc.to_dict()["detail"] + "<br>"
-            info += "連結：" + "<a href=" + doc.to_dict()["buyUrl"] + ">" + doc.to_dict()["buyUrl"] + "<br>"
-        print(info)
-        if not found:
-            info = "找不到您搜尋的活動"
-        print(info)
+            info += "連結：" + "<a href=" + doc.to_dict()["pic"] + ">" + doc.to_dict()["pic"] + "<br>"
+print(info)
 
 # if __name__ == "__main__": 
 #     app.run(debug=True)

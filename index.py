@@ -11,26 +11,6 @@ app = Flask(__name__)
 db = firestore.client()
 
 
-@app.route("/")
-def index():
-    homepage = "<br><a href=/pizza>pizza</a><br>"
-    return homepage
-@app.route("/pizza", methods=["POST","GET"]) 
-def pizza():
-    if request.method == "POST":
-        title = request.form["title"]
-        info = ""
-        db = firestore.client()     
-        collection_ref = db.collection("Pizza").order_by("title")
-        docs = collection_ref.get()
-        for doc in docs:
-            if title in doc.to_dict()["title"]: 
-                info += "活動：" + str(doc.to_dict()["title"]) + "<br>" 
-                info += "內容：" + doc.to_dict()["detail"] + "<br>"
-                info += "連結：" +"<a href=" + doc.to_dict()["buyUrl"] +">" + doc.to_dict()["buyUrl"] +"<br>"          
-        return info
-    else:  
-        return render_template("pizza.html")
 @app.route("/webhook", methods=["POST"])
 def webhook():
     req = request.get_json(force=True)
@@ -70,25 +50,22 @@ def webhook():
         if found:
             info = "找不到您搜尋的產品"
             return make_response(jsonify({"fulfillmentText": info}))
-    elif (action=="News"):
-        title = req["queryResult"]["parameters"]["News"]
+    elif (action=="news"):
+        title = req["queryResult"]["parameters"]["news"]
         info = ""
         db = firestore.client()    
         found=False 
-        collection_ref = db.collection("新品嘗鮮").order_by("News")
+        collection_ref = db.collection("新品嘗鮮").order_by("news")
         docs = collection_ref.get()
         for doc in docs:
-            if title in doc.to_dict()["News"]:
+            if title in doc.to_dict()["news"]:
                 found=True
-                info += "產品：" + str(doc.to_dict()["News"]) + "\n" 
+                info += "產品：" + str(doc.to_dict()["news"]) + "\n" 
                 info += "內容：" + doc.to_dict()["detail"] + "\n"
                 info += "圖片：" + doc.to_dict()["pic"] +"\n"
             return make_response(jsonify({"fulfillmentText": info}))   
         if found:
             info = "找不到您搜尋的產品"
-            return make_response(jsonify({"fulfillmentText": info}))    
-        
-        
-        
+            return make_response(jsonify({"fulfillmentText": info}))            
 if __name__ == "__main__": 
     app.run(debug=True)

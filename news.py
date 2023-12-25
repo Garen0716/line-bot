@@ -14,12 +14,12 @@ result=sp.select(".promotion_list_item")
 db = firestore.client()
 info = ""
 for item in result:
-  News = item.find(class_="pro-li-name").text
+  news = item.find(class_="pro-li-name").text
   pic = item.find("img").get("data-original").replace(" ", "")
   detail = item.find(class_="pro-list-desc").text
-  info += News + "\n" + pic + "\n"+ detail + "\n"
+  info += news + "\n" + pic + "\n"+ detail + "\n"
   doc = {
-      "News": News,
+      "news": news,
       "detail": detail,
       "pic": pic,
    }
