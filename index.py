@@ -63,7 +63,7 @@ def webhook():
                 info += "產品：" + str(doc.to_dict()["news"]) + "\n" 
                 info += "內容：" + doc.to_dict()["detail"] + "\n"
                 info += "圖片：" + doc.to_dict()["pic"] +"\n"
-            return make_response(jsonify({"fulfillmentText": info}))   
+                return make_response(jsonify({"fulfillmentText": info}))   
         if found:
             info = "找不到您搜尋的產品"
             return make_response(jsonify({"fulfillmentText": info}))            
